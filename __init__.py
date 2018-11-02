@@ -12,6 +12,8 @@ from mycroft.skills.core import MycroftSkill, intent_handler
 from mycroft.util.log import LOG
 import json
 import requests
+import dateutil.parser
+import time
 
 
 # Each skill is contained within its own class, which inherits base methods
@@ -98,6 +100,9 @@ class TemplateSkill(MycroftSkill):
         json_data = json.loads(response.text)
         latest_appointment = len(json_data['entry'])-1
         start_date = json_data['entry'][latest_appointment]['resource']['start']
+	sd = dateutil.parser.parse(start_date)
+	sdo = time.strftime("%b %d %Y %H %M", time.gmtime(sd))
+
         #print(json_data['entry'][latest_appointment]['resource']['end'])
         place = json_data['entry'][latest_appointment]['resource']['participant'][0]['actor']['display']
         self.speak_dialog("PatientAppointment",data={"start_date":start_date,"place":place})
