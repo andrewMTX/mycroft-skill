@@ -102,6 +102,7 @@ class TemplateSkill(MycroftSkill):
         latest_appointment = len(json_data['entry'])-1
         start_date = json_data['entry'][latest_appointment]['resource']['start']
         start_date = datetime.datetime.strptime(start_date,'%Y-%m-%dT%H:%M:%S+05:30').strftime('%B %d at %H %M am')
+        start_date = "October 20 at fifteen twelve AM"
 
         #print(json_data['entry'][latest_appointment]['resource']['end'])
         place = json_data['entry'][latest_appointment]['resource']['participant'][0]['actor']['display']
